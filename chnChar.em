@@ -3,20 +3,20 @@
  *  Date:   2002.9.18
  *  Author: suqiyuan
  * ================================
- * ÕâÀïÓÐ¼¸¸öºê¿ÉÒÔÓÃÀ´²¿·ÖÖ§³Öºº×Ö:
- * Ê¹ÓÃÕâÐ©ºêÖØÔØ¶ÔÓ¦µÄ¼ü¾Í¿ÉÒÔÁË
+ * è¿™é‡Œæœ‰å‡ ä¸ªå®å¯ä»¥ç”¨æ¥éƒ¨åˆ†æ”¯æŒæ±‰å­—:
+ * ä½¿ç”¨è¿™äº›å®é‡è½½å¯¹åº”çš„é”®å°±å¯ä»¥äº†
  *
- * ÖØÔØ¹ØÏµÈçÏÂ:
+ * é‡è½½å…³ç³»å¦‚ä¸‹:
  * EM_delete:            DELETE
  * EM_backspace:         BACKSPACE
- * EM_CursorUp:          ¡ü£¨ÉÏ·½Ïò¼ü£©
- * EM_CursorDown:        ¡ý£¨ÏÂ·½Ïò¼ü£©
- * EM_CursorLeft:        ¡û£¨×ó·½Ïò¼ü£©
- * EM_CursorRight:       ¡ú£¨ÓÒ·½Ïò¼ü£©
- * EM_SelectWordLeft:    Shift + ¡û
- * EM_SelectWordRight:   Shift + ¡ú
- * EM_SelectLineUp:      Shift + ¡ü
- * EM_SelectLineUp:      Shift + ¡ý
+ * EM_CursorUp:          â†‘ï¼ˆä¸Šæ–¹å‘é”®ï¼‰
+ * EM_CursorDown:        â†“ï¼ˆä¸‹æ–¹å‘é”®ï¼‰
+ * EM_CursorLeft:        â†ï¼ˆå·¦æ–¹å‘é”®ï¼‰
+ * EM_CursorRight:       â†’ï¼ˆå³æ–¹å‘é”®ï¼‰
+ * EM_SelectWordLeft:    Shift + â†
+ * EM_SelectWordRight:   Shift + â†’
+ * EM_SelectLineUp:      Shift + â†‘
+ * EM_SelectLineUp:      Shift + â†“
  ****************************************************************************/
  
  //For keyboard delete
@@ -36,7 +36,7 @@
     curLine = GetBufLine(hBuf,ln)
 
     //Msg("Now Select lines:@lnCnt@,Line @ln@ index @ich@ to line @lnLast@ index @ichLast@")
-    if((lnCnt > 1) || ((lnCnt==1)&&(ichLast>ich)))//Ñ¡ÔñµÄÊÇ¿é
+    if((lnCnt > 1) || ((lnCnt==1)&&(ichLast>ich)))//é€‰æ‹©çš„æ˜¯å—
     {
         //Msg("Selection is One BLOCK.")
         curLine = GetBufLine(hBuf,ln)
@@ -51,7 +51,7 @@
                 else
                     index = index + 2
             }
-            //Èç¹û¿éÊ×ÔÚºº×ÖÖÐ¼ä£¬¿éÊ×ÏòÇ°µ÷ÕûÒ»¸ö×Ö½Ú
+            //å¦‚æžœå—é¦–åœ¨æ±‰å­—ä¸­é—´ï¼Œå—é¦–å‘å‰è°ƒæ•´ä¸€ä¸ªå­—èŠ‚
             sel.ichFirst = ich - (index-ich)
         }
         curLine = GetBufLine(hBuf,lnLast)
@@ -72,11 +72,11 @@
         //Msg("See the block selected is adjusted now.")
         Delete_Character
     }
-    else//Ñ¡ÔñµÄ²»ÊÇ¿é
+    else//é€‰æ‹©çš„ä¸æ˜¯å—
     {
         //Msg("Selection NOT block.")
         curChar = curLine[ich]
-        //Èç¹ûÔÚÐÐÄ©,Ó¦¸ÃÄÜ¹»Ê¹µÃÏÂÒ»ÐÐÁ¬µ½ÐÐÎ²
+        //å¦‚æžœåœ¨è¡Œæœ«,åº”è¯¥èƒ½å¤Ÿä½¿å¾—ä¸‹ä¸€è¡Œè¿žåˆ°è¡Œå°¾
         if(ich == strlen(curLine))
         {
             Delete_Character
@@ -92,9 +92,9 @@
         }
         else
         {
-            /*ÕâÀïµÄÊµÏÖ·½·¨ÊÇÕâÑùµÄ:´ÓÐÐÊ×¿ªÊ¼ÕÒ,Èç¹ûÊÇTableÖÐµÄ,¼ÓÒ»¼ÌÐø
-             *Èç¹û²»ÊÇ,¼Ó¶þ¼ÌÐø,Ò»Ö±µ½µ±Ç°×Ö·û,¾ö¶¨ÔõÃ´É¾³ý
-             *ÕâÀïÓÐÕâÑùµÄ¼Ù¶¨,µ±Ç°ÐÐÃ»ÓÐ°ë¸öºº×ÖµÄÇéÐÎ
+            /*è¿™é‡Œçš„å®žçŽ°æ–¹æ³•æ˜¯è¿™æ ·çš„:ä»Žè¡Œé¦–å¼€å§‹æ‰¾,å¦‚æžœæ˜¯Tableä¸­çš„,åŠ ä¸€ç»§ç»­
+             *å¦‚æžœä¸æ˜¯,åŠ äºŒç»§ç»­,ä¸€ç›´åˆ°å½“å‰å­—ç¬¦,å†³å®šæ€Žä¹ˆåˆ é™¤
+             *è¿™é‡Œæœ‰è¿™æ ·çš„å‡å®š,å½“å‰è¡Œæ²¡æœ‰åŠä¸ªæ±‰å­—çš„æƒ…å½¢
              */
             index = 0
             word  = 0
@@ -121,7 +121,7 @@
             nich = 2*(word-(index-ich)) + byte
             //Msg("Start deleting position:@ich@,word:@word@,byte:@byte@")
             DelCharOfLine(hWnd,ln,nich,2)
-            if((index-ich) && !flag && (ich != len-1))//µ±ÔÚÒ»¸ö²»ÔÚÄ©Î²µÄºº×ÖÖÐ¼ä
+            if((index-ich) && !flag && (ich != len-1))//å½“åœ¨ä¸€ä¸ªä¸åœ¨æœ«å°¾çš„æ±‰å­—ä¸­é—´
                 Cursor_Left
         }
     }
@@ -144,7 +144,7 @@ Macro EM_backspace()
     ichLast = GetWndSelIchLim(hWnd)
 
     //Msg("Now Select lines:@lnCnt@,Line @ln@ index @ich@ to line @lnLast@ index @ichLast@")
-    if((lnCnt > 1) || ((lnCnt==1)&&(ichLast>ich)))//Ñ¡ÔñµÄÊÇ¿é,Ö±½ÓÉ¾³ýµ÷ÕûºóµÄ¿é
+    if((lnCnt > 1) || ((lnCnt==1)&&(ichLast>ich)))//é€‰æ‹©çš„æ˜¯å—,ç›´æŽ¥åˆ é™¤è°ƒæ•´åŽçš„å—
     {
         EM_delete
     }
@@ -252,7 +252,7 @@ Macro DelCharOfLine(hWnd,ln,ich,count)
 }
 
 
-//ÉÏÒÆ¹â±ê
+//ä¸Šç§»å…‰æ ‡
 macro EM_CursorUp()
 {
     hWnd = GetCurrentWnd()
@@ -261,23 +261,23 @@ macro EM_CursorUp()
 
     hbuf = GetCurrentBuf()
 
-    //ÒÆ¶¯¹â±ê
+    //ç§»åŠ¨å…‰æ ‡
     Cursor_Up
 
-    //¼ì²éÒÆ¶¯¹â±êºóµÄ¹â±êÎ»ÖÃ
+    //æ£€æŸ¥ç§»åŠ¨å…‰æ ‡åŽçš„å…‰æ ‡ä½ç½®
     hwnd = GetWndhandle(hbuf)
     sel = GetWndSel(hwnd)
     str = GetBufline(hbuf, sel.lnFirst)
 
     flag = StrChinChk(str, sel.ichFirst)
-    //¹â±êÎ»ÓÚÖÐÎÄ×Ö·ûÖ®ÖÐÔòÏòÇ°ÒÆ¶¯Ò»¸ö×Ö·û
+    //å…‰æ ‡ä½äºŽä¸­æ–‡å­—ç¬¦ä¹‹ä¸­åˆ™å‘å‰ç§»åŠ¨ä¸€ä¸ªå­—ç¬¦
     if (flag == True)
     {
         Cursor_Left
     }
 }
 
-//ÏÂÒÆ¹â±ê
+//ä¸‹ç§»å…‰æ ‡
 macro EM_CursorDown()
 {
     hWnd = GetCurrentWnd()
@@ -286,16 +286,16 @@ macro EM_CursorDown()
 
     hbuf = GetCurrentBuf()
 
-    //ÒÆ¶¯¹â±ê
+    //ç§»åŠ¨å…‰æ ‡
     Cursor_Down
 
-    //¼ì²éÒÆ¶¯¹â±êºóµÄ¹â±êÎ»ÖÃ
+    //æ£€æŸ¥ç§»åŠ¨å…‰æ ‡åŽçš„å…‰æ ‡ä½ç½®
     hwnd = GetWndhandle(hbuf)
     sel = GetWndSel(hwnd)
     str = GetBufline(hbuf, sel.lnFirst)
 
     flag = StrChinChk(str, sel.ichFirst)
-    //¹â±êÎ»ÓÚÖÐÎÄ×Ö·ûÖ®ÖÐÔòÏòÇ°ÒÆ¶¯Ò»¸ö×Ö·û
+    //å…‰æ ‡ä½äºŽä¸­æ–‡å­—ç¬¦ä¹‹ä¸­åˆ™å‘å‰ç§»åŠ¨ä¸€ä¸ªå­—ç¬¦
     if (flag == True)
     {
         Cursor_Right
@@ -303,7 +303,7 @@ macro EM_CursorDown()
 }
 
 
-//ÓÒÒÆ¹â±ê
+//å³ç§»å…‰æ ‡
 macro EM_CursorRight()
 {
     hWnd = GetCurrentWnd()
@@ -312,23 +312,23 @@ macro EM_CursorRight()
 
     hbuf = GetCurrentBuf()
 
-    //ÒÆ¶¯¹â±ê
+    //ç§»åŠ¨å…‰æ ‡
     Cursor_Right
 
-    //¼ì²éÒÆ¶¯¹â±êºóµÄ¹â±êÎ»ÖÃ
+    //æ£€æŸ¥ç§»åŠ¨å…‰æ ‡åŽçš„å…‰æ ‡ä½ç½®
     hwnd = GetWndhandle(hbuf)
     sel = GetWndSel(hwnd)
     str = GetBufline(hbuf, sel.lnFirst)
 
     flag = StrChinChk(str, sel.ichFirst)
-    //¹â±êÎ»ÓÚÖÐÎÄ×Ö·ûÖ®ÖÐÔòÏòÇ°ÒÆ¶¯Ò»¸ö×Ö·û(ÏòºóÒÆÊ±ÊÇÔÙÏòºóÒÆ¶¯Ò»¸ö×Ö·û)
+    //å…‰æ ‡ä½äºŽä¸­æ–‡å­—ç¬¦ä¹‹ä¸­åˆ™å‘å‰ç§»åŠ¨ä¸€ä¸ªå­—ç¬¦(å‘åŽç§»æ—¶æ˜¯å†å‘åŽç§»åŠ¨ä¸€ä¸ªå­—ç¬¦)
     if (flag == True)
     {
         Cursor_Right
     }
 }
 
-//×óÒÆ¹â±ê
+//å·¦ç§»å…‰æ ‡
 macro EM_CursorLeft()
 {
     hWnd = GetCurrentWnd()
@@ -337,23 +337,23 @@ macro EM_CursorLeft()
 
     hbuf = GetCurrentBuf()
 
-    //ÒÆ¶¯¹â±ê
+    //ç§»åŠ¨å…‰æ ‡
     Cursor_Left
 
-    //¼ì²éÒÆ¶¯¹â±êºóµÄ¹â±êÎ»ÖÃ
+    //æ£€æŸ¥ç§»åŠ¨å…‰æ ‡åŽçš„å…‰æ ‡ä½ç½®
     hwnd = GetWndhandle(hbuf)
     sel = GetWndSel(hwnd)
     str = GetBufline(hbuf, sel.lnFirst)
 
     flag = StrChinChk(str, sel.ichFirst)
-    //¹â±êÎ»ÓÚÖÐÎÄ×Ö·ûÖ®ÖÐÔòÏòÇ°ÒÆ¶¯Ò»¸ö×Ö·û(ÏòºóÒÆÊ±ÊÇÔÙÏòºóÒÆ¶¯Ò»¸ö×Ö·û)
+    //å…‰æ ‡ä½äºŽä¸­æ–‡å­—ç¬¦ä¹‹ä¸­åˆ™å‘å‰ç§»åŠ¨ä¸€ä¸ªå­—ç¬¦(å‘åŽç§»æ—¶æ˜¯å†å‘åŽç§»åŠ¨ä¸€ä¸ªå­—ç¬¦)
     if (flag == True)
     {
         Cursor_Left
     }
 }
 
-//Ïò×óÑ¡Ôñ×Ö·û
+//å‘å·¦é€‰æ‹©å­—ç¬¦
 macro EM_SelectWordLeft()
 {
     hWnd = GetCurrentWnd()
@@ -361,7 +361,7 @@ macro EM_SelectWordLeft()
         stop
     hbuf = GetCurrentBuf()
 
-    //Ö´ÐÐÃüÁî
+    //æ‰§è¡Œå‘½ä»¤
     Select_Char_Left
 
     hwnd = GetWndhandle(hbuf)
@@ -387,7 +387,7 @@ macro EM_SelectWordLeft()
     }
 }
 
-//ÏòÓÒÑ¡Ôñ×Ö·û
+//å‘å³é€‰æ‹©å­—ç¬¦
 macro EM_SelectWordRight()
 {
     hWnd = GetCurrentWnd()
@@ -395,7 +395,7 @@ macro EM_SelectWordRight()
         stop
     hbuf = GetCurrentBuf()
 
-    //Ö´ÐÐÃüÁî
+    //æ‰§è¡Œå‘½ä»¤
     Select_Char_Right
 
     hwnd = GetWndhandle(hbuf)
@@ -421,7 +421,7 @@ macro EM_SelectWordRight()
     }
 }
 
-//ÏòÉÏÑ¡Ôñ×Ö·û
+//å‘ä¸Šé€‰æ‹©å­—ç¬¦
 macro EM_SelectLineUp()
 {
     hWnd = GetCurrentWnd()
@@ -429,7 +429,7 @@ macro EM_SelectLineUp()
         stop
     hbuf = GetCurrentBuf()
 
-    //Ö´ÐÐÃüÁî
+    //æ‰§è¡Œå‘½ä»¤
     Select_Line_Up
 
     hwnd = GetWndhandle(hbuf)
@@ -455,7 +455,7 @@ macro EM_SelectLineUp()
     }
 }
 
-//ÏòÏÂÑ¡Ôñ×Ö·û
+//å‘ä¸‹é€‰æ‹©å­—ç¬¦
 macro EM_SelectLineDown()
 {
     hWnd = GetCurrentWnd()
@@ -463,7 +463,7 @@ macro EM_SelectLineDown()
         stop
     hbuf = GetCurrentBuf()
 
-    //Ö´ÐÐÃüÁî
+    //æ‰§è¡Œå‘½ä»¤
     Select_Line_Down
 
     hwnd = GetWndhandle(hbuf)
@@ -489,9 +489,9 @@ macro EM_SelectLineDown()
     }
 }
 
-//¶Ô×Ö·û´®strµ½lnÎ»½øÐÐ¼ì²é
-//Èç¹ûÓÐÅ¼Êý¸öÖÐÎÄ×Ö·ûÔò·µ»ØFALSE
-//Èç¹ûÊÇÆæÊý¸öÖÐÎÄ×Ö·ûÔò·µ»ØTRUE
+//å¯¹å­—ç¬¦ä¸²stråˆ°lnä½è¿›è¡Œæ£€æŸ¥
+//å¦‚æžœæœ‰å¶æ•°ä¸ªä¸­æ–‡å­—ç¬¦åˆ™è¿”å›žFALSE
+//å¦‚æžœæ˜¯å¥‡æ•°ä¸ªä¸­æ–‡å­—ç¬¦åˆ™è¿”å›žTRUE
 macro StrChinChk(str, ln)
 {
     tm  = 0
@@ -504,7 +504,7 @@ macro StrChinChk(str, ln)
         else
             ascstr = 0
 
-        //ÖÐÎÄ×Ö·ûASCII > 128
+        //ä¸­æ–‡å­—ç¬¦ASCII > 128
         if (ascstr > 128)
             flag = !flag
 
@@ -515,7 +515,7 @@ macro StrChinChk(str, ln)
     return flag
 }
 
-// ÔÚ¹¤³ÌÖÐ²éÕÒ°ë¸öºº×Ö,ÒÀÀµ"macro OpenorNewBuf(szfile)"
+// åœ¨å·¥ç¨‹ä¸­æŸ¥æ‰¾åŠä¸ªæ±‰å­—,ä¾èµ–"macro OpenorNewBuf(szfile)"
 macro FindHalfChcharInProj()
 {
     hprj = GetCurrentProj()
@@ -529,7 +529,7 @@ macro FindHalfChcharInProj()
         Msg("Can't Open file:HalfChchar.txt")
         stop
     }
-    AppendBufLine(hOutBuf, ">>°ë¸öºº×ÖÁÐ±í>>")
+    AppendBufLine(hOutBuf, ">>åŠä¸ªæ±‰å­—åˆ—è¡¨>>")
     
     ifile = 0
     while (ifile < ifileMax)
@@ -547,7 +547,7 @@ macro FindHalfChcharInProj()
                 flag = StrChinChk(str, strlen(str))
                 if (flag == True)
                 {
-                    // ´æÔÚ°ë¸öºº×Ö,¼ÇÂ¼ÎÄ¼þÃûºÍÐÐºÅ
+                    // å­˜åœ¨åŠä¸ªæ±‰å­—,è®°å½•æ–‡ä»¶åå’Œè¡Œå·
                     iOutLn = iCurLn + 1
                     outstr = cat(filename, "(@iOutLn@) : ")
                     outstr = cat(outstr, str)
@@ -564,7 +564,7 @@ macro FindHalfChcharInProj()
     //Go_To_First_Link
 }
 
-// Èç¹ûÃ»ÓÐszfileÖ¸Ã÷µÄÎÄ¼þ´ò¿ª,ÔòÐÂ½¨,·ñÔò´ò¿ª,²¢·µ»ØBUFF¾ä±ú
+// å¦‚æžœæ²¡æœ‰szfileæŒ‡æ˜Žçš„æ–‡ä»¶æ‰“å¼€,åˆ™æ–°å»º,å¦åˆ™æ‰“å¼€,å¹¶è¿”å›žBUFFå¥æŸ„
 macro OpenorNewBuf(szfile)
 {
     hout = GetBufHandle(szfile)
