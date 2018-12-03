@@ -11,7 +11,7 @@ doc：详细文档
 # 配置说明
 ## Source Insight
 如果已经存在Base工程，可以直接将quicker.em加入到其中，并且同步文件。也可以删除它重建立一个Base工程，然后再把quicker.em加入其中，同步工程后，再定义好热键和菜单
-GLOBAL_si30.CF3是si3.x的配置文件，GLOBAL_si40.xml是si4.x的配置文件，它已经定义好菜单和热键。图方便的话可以直接使用这两个配置文件，这样就可以不用自己定义菜单和热键了。
+config_si30.CF3是si3.x的配置文件，config_si40.xml是si4.x的配置文件，它已经定义好菜单和热键。图方便的话可以直接使用这两个配置文件，这样就可以不用自己定义菜单和热键了。
 选择Options的Save Configuration先保存自己的配置，以便回退，然后再选择Options的
 Load Configuration来装载该配置，如果不喜欢我的配置风格，只想要热键和菜单定义，
 只要勾上菜单和热键两个子项即可。
